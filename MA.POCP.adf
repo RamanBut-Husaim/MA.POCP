@@ -1,0 +1,67 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=Sorting
+
+[Library]
+Sorting=.\Sorting\Sorting.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+Sorting=.
+Active_lib=
+
+[Groups]
+Max=1
+Testbenches=1
+Zeroes=1
+
+[Files]
+/MRAM.vhd=-1
+/TrafficLights.vhd=-1
+/MROM.vhd=-1
+/DPATH.vhd=-1
+/CTRL1.vhd=-1
+Max/MaxFinder.vhd=-1
+Testbenches/zero_counter_t.vhd=-1
+Testbenches/max_finder_t.vhd=-1
+Testbenches/traffic_lights_t.vhd=-1
+Zeroes/ZeroCounter.vhd=-1
+
+[Files.Data]
+.\src\MRAM.vhd=VHDL Source Code
+.\src\TrafficLights.vhd=VHDL Source Code
+.\src\MROM.vhd=VHDL Source Code
+.\src\DPATH.vhd=VHDL Source Code
+.\src\CTRL1.vhd=VHDL Source Code
+.\src\Max\MaxFinder.vhd=VHDL Source Code
+.\src\Testbenches\zero_counter_t.vhd=VHDL Source Code
+.\src\Testbenches\max_finder_t.vhd=VHDL Source Code
+.\src\Testbenches\traffic_lights_t.vhd=VHDL Source Code
+.\src\Zeroes\ZeroCounter.vhd=VHDL Source Code
+

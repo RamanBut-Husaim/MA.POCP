@@ -1,0 +1,8 @@
+[Version]
+Version=10.3
+[Designs]
+MA.POCP=MA.POCP.adf
+[Settings]
+Active=MA.POCP
+[Expand]
+ma.pocp=1
