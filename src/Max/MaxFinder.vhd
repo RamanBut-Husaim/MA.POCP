@@ -35,8 +35,6 @@ architecture Beh of MaxFinder is
 			--operand
 			OP1: in std_logic_vector(7 downto 0);
 			RES: out std_logic_vector(7 downto 0);
-			--zero flag
-			ZF: out std_logic;
 			-- significant bit set flag
 			SBF: out std_logic
 			);
@@ -63,7 +61,6 @@ architecture Beh of MaxFinder is
 			DP_ot: out std_logic_vector(2 downto 0);
 			DP_en: out std_logic;
 			DP_res: in std_logic_vector(7 downto 0);
-			DP_zf: in std_logic;
 			DP_sbf: in std_logic
 			);
 	end component;
@@ -79,7 +76,6 @@ architecture Beh of MaxFinder is
 	signal dp_ot: std_logic_vector(2 downto 0);
 	signal dp_en: std_logic;
 	signal dp_res: std_logic_vector(7 downto 0);
-	signal dp_zf: std_logic;
 	signal dp_sbf: std_logic;
 begin
 	UMRAM: entity MRAM (Beh_Max) port map(
@@ -98,7 +94,6 @@ begin
 		OT => dp_ot,
 		OP1 => dp_op1,
 		RES => dp_res,
-		ZF => dp_zf,
 		SBF => dp_sbf
 		);
 	UCTRL1: CTRL1 port map(
@@ -117,7 +112,6 @@ begin
 		DP_OT => dp_ot,
 		DP_OP1 => dp_op1,
 		DP_RES => dp_res,
-		DP_ZF => dp_zf,
 		DP_SBF => dp_sbf
 		);
 end Beh;

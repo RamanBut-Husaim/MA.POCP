@@ -22,13 +22,12 @@ entity CTRL1 is
 		DP_ot: out std_logic_vector(2 downto 0);
 		DP_en: out std_logic;
 		DP_res: in std_logic_vector(7 downto 0);
-		DP_zf: in std_logic;
 		DP_sbf: in std_logic
 		);
 end CTRL1;
 
 architecture Beh of CTRL1 is
-	type states is (I, F, D, R, L, S, A, SB, H, JZ, JSB);
+	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN);
 	--I - idle -
 	--F - fetch
 	--D - decode
@@ -38,8 +37,9 @@ architecture Beh of CTRL1 is
 	--A - add
 	--SB - sub
 	--H - halt
-	--JZ - jump if not zero flag
 	--JSB - jump if not sign bit set
+	-- RIN - read after load indirect
+    -- LIN - load indirect
 	signal nxt_state, cur_state: states;
 	--регистр выбранной инструкции
 	signal RI: std_logic_vector(8 downto 0);
@@ -57,7 +57,7 @@ architecture Beh of CTRL1 is
 	constant ADD: std_logic_vector(2 downto 0) := "010";
 	constant SUB: std_logic_vector(2 downto 0) := "011";
 	constant HALT: std_logic_vector(2 downto 0) := "100";
-	constant JNZ: std_logic_vector(2 downto 0) := "101";
+    constant LOADIN: std_logic_vector(2 downto 0) := "111";
 	constant JNSB: std_logic_vector(2 downto 0) := "110";
 begin
 	--синхронная память
@@ -86,8 +86,6 @@ begin
 					nxt_state <= H;
 				elsif (RO = STORE) then
 					nxt_state <= S;
-				elsif (RO = JNZ) then
-					nxt_state <= JZ;
 				elsif (RO = JNSB) then
 					nxt_state <= JSB;
 				else
@@ -100,10 +98,14 @@ begin
 					nxt_state <= A;
 				elsif (RO = SUB) then
 					nxt_state <= SB;
+				elsif (RO = LOADIN) then
+					nxt_state <= LIN;
 				else
 					nxt_state <= I;
 			end if;
-			when L | S | A | SB | JZ | JSB => nxt_state <= F;
+			when LIN => nxt_state <= RIN;
+			when RIN => nxt_state <= L;
+			when L | S | A | SB | JSB => nxt_state <= F;
 			when H => nxt_state <= H;
 			when others => nxt_state <= I;
 		end case;
@@ -127,8 +129,6 @@ begin
 		elsif falling_edge(CLK) then
 			if (cur_state = D) then
 				IC <= IC + 1;
-			elsif (cur_state = JZ and DP_ZF = '0') then
-				IC <= RA;
 			elsif (cur_state = JSB and DP_SBF = '0') then
 				IC <= RA;
 			end if;
@@ -166,12 +166,14 @@ begin
 		elsif (nxt_state = D) then
 			RO <= RI (8 downto 6);
 			RA <= RI (5 downto 0);
+		elsif (nxt_state = LIN) then
+			RA <= RD(5 downto 0);
 		end if;
 	end process;
 	
 	PRAMST: process (RA)
 	begin
-		if (cur_state /= JZ and cur_state /= JSB) then
+		if (cur_state /= JSB) then
 			RAM_adr <= RA;
 		end if;
 	end process;
@@ -189,7 +191,7 @@ begin
 	--запись значения из памяти RAM в регистр RD
 	PRAMDAR: process (cur_state)
 	begin
-		if (cur_state = R) then
+		if (cur_state = R or cur_state = RIN) then
 			RD <= RAM_dout;
 		end if;
 	end process;

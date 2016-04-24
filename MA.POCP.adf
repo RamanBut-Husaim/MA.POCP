@@ -39,19 +39,14 @@ Active_lib=
 [Groups]
 Max=1
 Testbenches=1
-Zeroes=1
 
 [Files]
 /MRAM.vhd=-1
-/TrafficLights.vhd=-1
 /MROM.vhd=-1
 /DPATH.vhd=-1
 /CTRL1.vhd=-1
 Max/MaxFinder.vhd=-1
-Testbenches/zero_counter_t.vhd=-1
 Testbenches/max_finder_t.vhd=-1
-Testbenches/traffic_lights_t.vhd=-1
-Zeroes/ZeroCounter.vhd=-1
 
 [Files.Data]
 .\src\MRAM.vhd=VHDL Source Code
