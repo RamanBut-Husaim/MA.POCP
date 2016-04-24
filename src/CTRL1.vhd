@@ -28,16 +28,16 @@ end CTRL1;
 
 architecture Beh of CTRL1 is
 	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN);
-	--I - idle -
-	--F - fetch
-	--D - decode
-	--R - read
-	--L - load
-	--S - store
-	--A - add
-	--SB - sub
-	--H - halt
-	--JSB - jump if not sign bit set
+	-- I - idle -
+	-- F - fetch
+	-- D - decode
+	-- R - read
+	-- L - load
+	-- S - store
+	-- A - add
+	-- SB - sub
+	-- H - halt
+	-- JSB - jump if not sign bit set
 	-- RIN - read after load indirect
     -- LIN - load indirect
 	signal nxt_state, cur_state: states;
@@ -57,7 +57,7 @@ architecture Beh of CTRL1 is
 	constant ADD: std_logic_vector(2 downto 0) := "010";
 	constant SUB: std_logic_vector(2 downto 0) := "011";
 	constant HALT: std_logic_vector(2 downto 0) := "100";
-    constant LOADIN: std_logic_vector(2 downto 0) := "111";
+    constant LOADIN: std_logic_vector(2 downto 0) := "101";
 	constant JNSB: std_logic_vector(2 downto 0) := "110";
 begin
 	--синхронная память

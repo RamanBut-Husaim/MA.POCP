@@ -25,7 +25,7 @@ architecture Beh of DPATH is
 	constant LOAD: std_logic_vector(2 downto 0) := "000";
 	constant ADD: std_logic_vector(2 downto 0) := "010";
 	constant SUB: std_logic_vector(2 downto 0) := "011";
-	constant LOADIN: std_logic_vector(2 downto 0) := "111";
+	constant LOADIN: std_logic_vector(2 downto 0) := "101";
 Begin
 	res_add <= CONV_STD_LOGIC_VECTOR(CONV_INTEGER(ACCUM) + CONV_INTEGER(OP1), 8);
 	res_sub <= CONV_STD_LOGIC_VECTOR(CONV_INTEGER(ACCUM) - CONV_INTEGER(OP1), 8);
