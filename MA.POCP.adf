@@ -37,7 +37,7 @@ Sorting=.
 Active_lib=
 
 [Groups]
-Max=1
+Sorting=1
 Testbenches=1
 
 [Files]
@@ -46,10 +46,8 @@ Testbenches=1
 /DPATH.vhd=-1
 /CTRL1.vhd=-1
 /Constants.vhd=-1
-Max/SortManager.vhd=-1
-Max/MaxFinder.vhd=-1
+Sorting/SortManager.vhd=-1
 Testbenches/sortmanager_t.vhd=-1
-Testbenches/max_finder_t.vhd=-1
 
 [Files.Data]
 .\src\MRAM.vhd=VHDL Source Code
@@ -57,8 +55,6 @@ Testbenches/max_finder_t.vhd=-1
 .\src\DPATH.vhd=VHDL Source Code
 .\src\CTRL1.vhd=VHDL Source Code
 .\src\Constants.vhd=VHDL Source Code
-.\src\Max\SortManager.vhd=VHDL Source Code
-.\src\Max\MaxFinder.vhd=VHDL Source Code
+.\src\Sorting\SortManager.vhd=VHDL Source Code
 .\src\Testbenches\sortmanager_t.vhd=VHDL Source Code
-.\src\Testbenches\max_finder_t.vhd=VHDL Source Code
 

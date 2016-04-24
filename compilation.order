@@ -3,7 +3,5 @@
 .\src\DPATH.vhd
 .\src\CTRL1.vhd
 .\src\Constants.vhd
-.\src\Max\SortManager.vhd
-.\src\Max\MaxFinder.vhd
+.\src\Sorting\SortManager.vhd
 .\src\Testbenches\sortmanager_t.vhd
-.\src\Testbenches\max_finder_t.vhd
