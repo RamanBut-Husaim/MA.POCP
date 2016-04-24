@@ -2,14 +2,14 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all; 
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
-entity MaxFinder is 
+entity SortManager is 
 	port (
 		CLK, RST, Start: in std_logic;
 		Stop: out std_logic
 	);
-end MaxFinder;
+end SortManager;
 
-architecture Beh of MaxFinder is
+architecture Beh of SortManager is
 	component MROM is
 		port (
 			RE: in std_logic;
@@ -32,7 +32,7 @@ architecture Beh of MaxFinder is
 			EN: in std_logic;
 			-- operation type
 			OT: in std_logic_vector(2 downto 0);
-			--operand
+			-- operand
 			OP1 : in std_logic_vector(7 downto 0);
 			RES: out std_logic_vector(7 downto 0);
 			-- zero flag
@@ -47,18 +47,18 @@ architecture Beh of MaxFinder is
 			CLK, RST, Start: in std_logic;
 			Stop: out std_logic;
 			
-			-- ÏÇÓ
+			-- ROM
 			ROM_re: out std_logic;
 			ROM_adr: out std_logic_vector(5 downto 0);
 			ROM_dout: in std_logic_vector(8 downto 0);
 			
-			-- ÎÇÓ
+			-- RAM
 			RAM_rw: out std_logic;
 			RAM_adr: out std_logic_vector(5 downto 0);
 			RAM_din: out std_logic_vector(7 downto 0);
 			RAM_dout: in std_logic_vector(7 downto 0);
 			
-			--datapath
+			-- datapath
 			DP_op1: out std_logic_vector(7 downto 0);
 			DP_ot: out std_logic_vector(2 downto 0);
 			DP_en: out std_logic;
@@ -82,13 +82,13 @@ architecture Beh of MaxFinder is
 	signal dp_zf: std_logic;
 	signal dp_sbf: std_logic;
 begin
-	UMRAM: entity MRAM (Beh_Max) port map(
+	UMRAM: entity MRAM (Beh_Sorting) port map(
 		RW => ram_rw,
 		ADR => ram_adr,
 		DIN => ram_din,
 		DOUT => ram_dout
 		);
-	UMROM: entity MROM (Beh_Max) port map (
+	UMROM: entity MROM (Beh_Sorting) port map (
 		RE => rom_re,
 		ADR => rom_adr,
 		DOUT => rom_dout

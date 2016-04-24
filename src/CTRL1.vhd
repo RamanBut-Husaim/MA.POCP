@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all; 
 use IEEE.STD_LOGIC_UNSIGNED.all;
+use Sorting_Design.all;
 
 entity CTRL1 is
 	port(
@@ -22,13 +23,14 @@ entity CTRL1 is
 		DP_ot: out std_logic_vector(2 downto 0);
 		DP_en: out std_logic;
 		DP_res: in std_logic_vector(7 downto 0);
-		DP_sbf: in std_logic
+		DP_sbf: in std_logic;
+		DP_zf: in std_logic
 		);
 end CTRL1;
 
 architecture Beh of CTRL1 is
-	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN);
-	-- I - idle -
+	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN, JZ);
+	-- I - idle
 	-- F - fetch
 	-- D - decode
 	-- R - read
@@ -40,6 +42,7 @@ architecture Beh of CTRL1 is
 	-- JSB - jump if not sign bit set
 	-- RIN - read after load indirect
     -- LIN - load indirect
+	-- JZ -  jump if sign bit set
 	signal nxt_state, cur_state: states;
 	--регистр выбранной инструкции
 	signal RI: std_logic_vector(8 downto 0);
@@ -51,14 +54,6 @@ architecture Beh of CTRL1 is
 	signal RA: std_logic_vector(5 downto 0);
 	--регистр данных
 	signal RD: std_logic_vector(7 downto 0);
-	
-	constant LOAD: std_logic_vector(2 downto 0) := "000";
-	constant STORE: std_logic_vector(2 downto 0) := "001";
-	constant ADD: std_logic_vector(2 downto 0) := "010";
-	constant SUB: std_logic_vector(2 downto 0) := "011";
-	constant HALT: std_logic_vector(2 downto 0) := "100";
-    constant LOADIN: std_logic_vector(2 downto 0) := "101";
-	constant JNSB: std_logic_vector(2 downto 0) := "110";
 begin
 	--синхронная память
 	FSM: process(CLK, RST, nxt_state)
@@ -82,30 +77,32 @@ begin
 			end if;
 			when F => nxt_state <= D;
 			when D => 
-				if (RO = HALT) then
+				if (RO = OP_HALT) then
 					nxt_state <= H;
-				elsif (RO = STORE) then
+				elsif (RO = OP_STORE) then
 					nxt_state <= S;
-				elsif (RO = JNSB) then
+				elsif (RO = OP_JZ) then
+					nxt_state <= JZ;
+				elsif (RO = OP_JNSB) then
 					nxt_state <= JSB;
 				else
 					nxt_state <= R;
 			end if;
 			when R => 
-				if (RO = LOAD) then 
+				if (RO = OP_LOAD) then 
 					nxt_state <= L;
-				elsif (RO = ADD) then
+				elsif (RO = OP_ADD) then
 					nxt_state <= A;
-				elsif (RO = SUB) then
+				elsif (RO = OP_SUB) then
 					nxt_state <= SB;
-				elsif (RO = LOADIN) then
+				elsif (RO = OP_LOADIN) then
 					nxt_state <= LIN;
 				else
 					nxt_state <= I;
 			end if;
 			when LIN => nxt_state <= RIN;
 			when RIN => nxt_state <= L;
-			when L | S | A | SB | JSB => nxt_state <= F;
+			when L | S | A | SB | JSB | JZ => nxt_state <= F;
 			when H => nxt_state <= H;
 			when others => nxt_state <= I;
 		end case;
@@ -129,6 +126,8 @@ begin
 		elsif falling_edge(CLK) then
 			if (cur_state = D) then
 				IC <= IC + 1;
+			elsif (cur_state = JZ and DP_ZF = '1') then
+				IC <= RA;
 			elsif (cur_state = JSB and DP_SBF = '0') then
 				IC <= RA;
 			end if;
@@ -173,7 +172,7 @@ begin
 	
 	PRAMST: process (RA)
 	begin
-		if (cur_state /= JSB) then
+		if (cur_state /= JSB and cur_state /= JZ) then
 			RAM_adr <= RA;
 		end if;
 	end process;

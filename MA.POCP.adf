@@ -45,18 +45,20 @@ Testbenches=1
 /MROM.vhd=-1
 /DPATH.vhd=-1
 /CTRL1.vhd=-1
+/Constants.vhd=-1
+Max/SortManager.vhd=-1
 Max/MaxFinder.vhd=-1
+Testbenches/sortmanager_t.vhd=-1
 Testbenches/max_finder_t.vhd=-1
 
 [Files.Data]
 .\src\MRAM.vhd=VHDL Source Code
-.\src\TrafficLights.vhd=VHDL Source Code
 .\src\MROM.vhd=VHDL Source Code
 .\src\DPATH.vhd=VHDL Source Code
 .\src\CTRL1.vhd=VHDL Source Code
+.\src\Constants.vhd=VHDL Source Code
+.\src\Max\SortManager.vhd=VHDL Source Code
 .\src\Max\MaxFinder.vhd=VHDL Source Code
-.\src\Testbenches\zero_counter_t.vhd=VHDL Source Code
+.\src\Testbenches\sortmanager_t.vhd=VHDL Source Code
 .\src\Testbenches\max_finder_t.vhd=VHDL Source Code
-.\src\Testbenches\traffic_lights_t.vhd=VHDL Source Code
-.\src\Zeroes\ZeroCounter.vhd=VHDL Source Code
 
