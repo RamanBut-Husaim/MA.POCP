@@ -34,33 +34,33 @@ architecture Beh_Sorting of MROM is
 		OP_SUB    & ADDR_I,         -- 000100      | 004    |
 		OP_JZ     & "100100",       -- 000101	   | 005	| jump to m1 [if i == length - 1 - finish outer loop]
 		-- Start: inner loop
-		OP_LOAD   & ADDR_I,		    -- 000110      | 006    | 
+		OP_LOAD   & ADDR_I,		    -- 000110      | 006    | j = i + 1
 		OP_ADD    & ADDR_ONE,       -- 000111      | 007    |
 		OP_STORE  & ADDR_J,         -- 001000	   | 008    |
 		OP_LOAD   & ADDR_LENGTH,    -- 001001	   | 009	| m4: [Start inner loop]
 		OP_SUB    & ADDR_J,         -- 001010      | 010    |
 		OP_JZ     & "011111",       -- 001011      | 011    | jump to m3
 		
-		OP_LOADIN &	ADDR_J,			-- 001100      | 012    |
+		OP_LOADIN &	ADDR_J,			-- 001100      | 012    | temp1 stores value for arr[j]
 		OP_STORE  & ADDR_TEMP1,		-- 001101      | 013    |
 		OP_LOADIN & ADDR_I,			-- 001110	   | 014	|
-		OP_STORE  & ADDR_TEMP2,		-- 001111	   | 015	|
+		OP_STORE  & ADDR_TEMP2,		-- 001111	   | 015	| temp2 stores value for arr[i]
 		OP_SUB    & ADDR_TEMP1,		-- 010000      | 016    |
 		OP_JNSB   &	"010110",	    -- 010001      | 017	| jump to m5
 		-- Swap values
-		OP_LOAD   & ADDR_TEMP1,		-- 010010      | 018	|
+		OP_LOAD   & ADDR_TEMP1,		-- 010010      | 018	| here we swap temp1 and temp2
 		OP_STORE  & ADDR_TEMP2,		-- 010011	   | 019    |
 		OP_LOADIN & ADDR_I,			-- 010100      | 020    |
 		OP_STORE  & ADDR_TEMP1,		-- 010101      | 021    |
 		-- End swap
 		OP_LOAD   & ADDR_TEMP1,		-- 010110	   | 022    | m5
-		OP_STOREIN & ADDR_J,		-- 010111	   | 023	|
+		OP_STOREIN & ADDR_J,		-- 010111	   | 023	| We load value from temp1 to arr[j] and temp2 to arr[i].
 		OP_LOAD   & ADDR_TEMP2,		-- 011000	   | 024    |
 		OP_STOREIN & ADDR_I,		-- 011001	   | 025    |
 		
-		OP_LOAD   & ADDR_J,		    -- 011010      | 026	|
+		OP_LOAD   & ADDR_J,		    -- 011010      | 026	| [Start j++]
 		OP_ADD    & ADDR_ONE,	    -- 011011      | 027	|
-		OP_STORE  & ADDR_J,		    -- 011100      | 028	|
+		OP_STORE  & ADDR_J,		    -- 011100      | 028	| [End j++]
 		OP_LOAD   & ADDR_ZERO,	    -- 011101      | 029	|
 		OP_JZ     & "001001",       -- 011110      | 030    | go to m4: [End inner loop]
 		-- End: inner loop
