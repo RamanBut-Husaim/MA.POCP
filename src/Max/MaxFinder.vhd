@@ -14,7 +14,7 @@ architecture Beh of MaxFinder is
 		port (
 			RE: in std_logic;
 			ADR: in std_logic_vector(5 downto 0);
-			DOUT: out std_logic_vector(8 downto 0)
+			DOUT: out std_logic_vector(9 downto 0)
 			);
 	end component;
 	
@@ -31,7 +31,7 @@ architecture Beh of MaxFinder is
 		port(
 			EN: in std_logic;
 			-- operation type
-			OT: in std_logic_vector(2 downto 0);
+			OT: in std_logic_vector(3 downto 0);
 			--operand
 			OP1 : in std_logic_vector(7 downto 0);
 			RES: out std_logic_vector(7 downto 0);
@@ -50,7 +50,7 @@ architecture Beh of MaxFinder is
 			-- ÏÇÓ
 			ROM_re: out std_logic;
 			ROM_adr: out std_logic_vector(5 downto 0);
-			ROM_dout: in std_logic_vector(8 downto 0);
+			ROM_dout: in std_logic_vector(9 downto 0);
 			
 			-- ÎÇÓ
 			RAM_rw: out std_logic;
@@ -60,7 +60,7 @@ architecture Beh of MaxFinder is
 			
 			--datapath
 			DP_op1: out std_logic_vector(7 downto 0);
-			DP_ot: out std_logic_vector(2 downto 0);
+			DP_ot: out std_logic_vector(3 downto 0);
 			DP_en: out std_logic;
 			DP_res: in std_logic_vector(7 downto 0);
 			DP_zf: in std_logic;
@@ -70,13 +70,13 @@ architecture Beh of MaxFinder is
 	
 	signal rom_re: std_logic;
 	signal rom_adr: std_logic_vector(5 downto 0);
-	signal rom_dout: std_logic_vector(8 downto 0);
+	signal rom_dout: std_logic_vector(9 downto 0);
 	signal ram_rw: std_logic;
 	signal ram_adr: std_logic_vector(5 downto 0);
 	signal ram_din: std_logic_vector(7 downto 0);
 	signal ram_dout: std_logic_vector(7 downto 0);
 	signal dp_op1: std_logic_vector(7 downto 0);
-	signal dp_ot: std_logic_vector(2 downto 0);
+	signal dp_ot: std_logic_vector(3 downto 0);
 	signal dp_en: std_logic;
 	signal dp_res: std_logic_vector(7 downto 0);
 	signal dp_zf: std_logic;

@@ -8,7 +8,7 @@ entity DPATH is
 	port(
 		EN: in std_logic;
 		-- operation type
-		OT: in std_logic_vector(2 downto 0);
+		OT: in std_logic_vector(3 downto 0);
 		-- operand
 		OP1: in std_logic_vector(7 downto 0);
 		RES: out std_logic_vector(7 downto 0);

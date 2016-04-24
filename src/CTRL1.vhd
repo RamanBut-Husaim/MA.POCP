@@ -11,7 +11,7 @@ entity CTRL1 is
 		-- ПЗУ
 		ROM_re: out std_logic;
 		ROM_adr: out std_logic_vector(5 downto 0);
-		ROM_dout: in std_logic_vector(8 downto 0);
+		ROM_dout: in std_logic_vector(9 downto 0);
 		
 		-- ОЗУ
 		RAM_rw: out std_logic;
@@ -20,7 +20,7 @@ entity CTRL1 is
 		RAM_dout: in std_logic_vector(7 downto 0);
 		--datapath
 		DP_op1: out std_logic_vector(7 downto 0);
-		DP_ot: out std_logic_vector(2 downto 0);
+		DP_ot: out std_logic_vector(3 downto 0);
 		DP_en: out std_logic;
 		DP_res: in std_logic_vector(7 downto 0);
 		DP_sbf: in std_logic;
@@ -29,7 +29,7 @@ entity CTRL1 is
 end CTRL1;
 
 architecture Beh of CTRL1 is
-	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN, JZ);
+	type states is (I, F, D, R, L, S, A, SB, H, JSB, RIN, LIN, JZ, SIN);
 	-- I - idle
 	-- F - fetch
 	-- D - decode
@@ -43,19 +43,20 @@ architecture Beh of CTRL1 is
 	-- RIN - read after load indirect
     -- LIN - load indirect
 	-- JZ -  jump if sign bit set
+	-- SIN - store indirect
 	signal nxt_state, cur_state: states;
-	--регистр выбранной инструкции
-	signal RI: std_logic_vector(8 downto 0);
-	--регистр счетчика инструкций
+	-- instruction register
+	signal RI: std_logic_vector(9 downto 0);
+	-- instruction counter
 	signal IC: std_logic_vector(5 downto 0);
-	--регистр типа операции
-	signal RO: std_logic_vector(2 downto 0);
-	--регистр адреса памяти
+	-- operation type register
+	signal RO: std_logic_vector(3 downto 0);
+	-- memory address register
 	signal RA: std_logic_vector(5 downto 0);
-	--регистр данных
+	-- data register
 	signal RD: std_logic_vector(7 downto 0);
 begin
-	--синхронная память
+	-- synchronous memory
 	FSM: process(CLK, RST, nxt_state)
 	begin
 		if (RST = '1') then
@@ -65,7 +66,7 @@ begin
 		end if;
 	end process;
 	
-	-- Комбинационная часть. Выработка след. состояния
+	-- Next state
 	COMB: process(cur_state, start, RO)
 	begin
 		case cur_state is 
@@ -97,11 +98,14 @@ begin
 					nxt_state <= SB;
 				elsif (RO = OP_LOADIN) then
 					nxt_state <= LIN;
+				elsif (RO = OP_STOREIN) then
+					nxt_state <= SIN;
 				else
 					nxt_state <= I;
 			end if;
 			when LIN => nxt_state <= RIN;
 			when RIN => nxt_state <= L;
+			when SIN => nxt_state <= S;
 			when L | S | A | SB | JSB | JZ => nxt_state <= F;
 			when H => nxt_state <= H;
 			when others => nxt_state <= I;
@@ -150,7 +154,7 @@ begin
 	PROMDAT: process (RST, cur_state, ROM_dout)
 	begin
 		if (RST = '1') then
-			RI <= "000000000";
+			RI <= "0000000000";
 		elsif (cur_state = F) then
 			RI <= ROM_dout;
 		end if;
@@ -160,13 +164,13 @@ begin
 	PRORA: process (RST, nxt_state, RI)
 	begin
 		if (RST = '1') then
-			RO <= "000";
+			RO <= "0000";
 			RA <= "000000";
 		elsif (nxt_state = D) then
-			RO <= RI (8 downto 6);
+			RO <= RI (9 downto 6);
 			RA <= RI (5 downto 0);
-		elsif (nxt_state = LIN) then
-			RA <= RD(5 downto 0);
+		elsif (nxt_state = LIN or nxt_state = SIN) then
+			RA <= RD (5 downto 0);
 		end if;
 	end process;
 	
