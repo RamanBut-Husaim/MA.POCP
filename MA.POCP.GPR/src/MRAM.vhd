@@ -4,13 +4,20 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity MRAM is
 	port(
-		RW: in std_logic; -- 0 - write; 1 - read
+		-- 0 - write; 1 - read
+		RW: in std_logic; 
 		CLK: in std_logic;
+		-- address for the first operand
 		ADDRA: in std_logic_vector(5 downto 0);
+		-- address for the second operand
 		ADDRB: in std_logic_vector(5 downto 0);
+		-- address to write
 		ADDRC: in std_logic_vector(5 downto 0);
+		-- first operand
 		DAOUT: out std_logic_vector(7 downto 0);
+		-- second operand
 		DBOUT: out std_logic_vector(7 downto 0);
+		-- data to write
 		DCIN: in std_logic_vector(7 downto 0)
 	);
 end MRAM;
