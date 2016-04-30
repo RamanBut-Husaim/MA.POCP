@@ -47,6 +47,7 @@ Testbences=1
 /MROM.vhd=-1
 /Constants.vhd=-1
 /DPATH.vhd=-1
+/CTRL1.vhd=-1
 Testbences/MRAM_t.vhd=-1
 
 [Files.Data]
@@ -54,5 +55,6 @@ Testbences/MRAM_t.vhd=-1
 .\src\MROM.vhd=VHDL Source Code
 .\src\Constants.vhd=VHDL Source Code
 .\src\DPATH.vhd=VHDL Source Code
+.\src\CTRL1.vhd=VHDL Source Code
 .\src\Testbences\MRAM_t.vhd=VHDL Source Code
 

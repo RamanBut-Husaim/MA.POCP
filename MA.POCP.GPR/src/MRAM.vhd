@@ -8,17 +8,17 @@ entity MRAM is
 		RW: in std_logic; 
 		CLK: in std_logic;
 		-- address for the first operand
-		ADDRA: in std_logic_vector(5 downto 0);
+		ADDR1: in std_logic_vector(5 downto 0);
 		-- address for the second operand
-		ADDRB: in std_logic_vector(5 downto 0);
+		ADDR2: in std_logic_vector(5 downto 0);
 		-- address to write
-		ADDRC: in std_logic_vector(5 downto 0);
+		ADDRW: in std_logic_vector(5 downto 0);
 		-- first operand
-		DAOUT: out std_logic_vector(7 downto 0);
+		D1OUT: out std_logic_vector(7 downto 0);
 		-- second operand
-		DBOUT: out std_logic_vector(7 downto 0);
+		D2OUT: out std_logic_vector(7 downto 0);
 		-- data to write
-		DCIN: in std_logic_vector(7 downto 0)
+		DWIN: in std_logic_vector(7 downto 0)
 	);
 end MRAM;
 
@@ -30,33 +30,33 @@ architecture Beh_GPR of MRAM is
 		others => "00000000"
 	);
 	
-	signal data_cin: std_logic_vector(7 downto 0);
-	signal data_aout: std_logic_vector(7 downto 0);
-	signal data_bout: std_logic_vector(7 downto 0);
+	signal data_win: std_logic_vector(7 downto 0);
+	signal data_1out: std_logic_vector(7 downto 0);
+	signal data_2out: std_logic_vector(7 downto 0);
 Begin
-	data_cin <= DCIN;
+	data_win <= DWIN;
 	
 	WRITE: process(CLK)
 	begin
 		if (rising_edge(CLK)) then
 			if (RW = '0') then
-				RAM(conv_integer(ADDRC)) <= data_cin;
+				RAM(conv_integer(ADDRW)) <= data_win;
 			end if;
 		end if;
 	end process;
 	
-	data_aout <= RAM (conv_integer(ADDRA));
-	data_bout <= RAM (conv_integer(ADDRB));
+	data_1out <= RAM (conv_integer(ADDR1));
+	data_2out <= RAM (conv_integer(ADDR2));
 	
 	READ: process(CLK)
 	begin
 		if (rising_edge(CLK)) then
 			if (RW = '1') then
-				DAOUT <= data_aout;
-				DBOUT <= data_bout;
+				D1OUT <= data_1out;
+				D2OUT <= data_2out;
 			else
-				DAOUT <= (others => 'Z');
-				DBOUT <= (others => 'Z');
+				D1OUT <= (others => 'Z');
+				D2OUT <= (others => 'Z');
 			end if; 
 		end if;
 	end process;

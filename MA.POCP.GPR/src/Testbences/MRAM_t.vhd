@@ -9,29 +9,29 @@ architecture Beh of MRAM_T is
 	component MRAM
 		port (
 			RW, CLK: in std_logic;
-			ADDRA, ADDRB, ADDRC: in std_logic_vector(5 downto 0);
-			DAOUT, DBOUT: out std_logic_vector(7 downto 0);
-			DCIN: in std_logic_vector(7 downto 0)
+			ADDR1, ADDR2, ADDRW: in std_logic_vector(5 downto 0);
+			D1OUT, D2OUT: out std_logic_vector(7 downto 0);
+			DWIN: in std_logic_vector(7 downto 0)
 		);
 	end component;
 	
 	signal rw: std_logic := '0';
 	signal clk: std_logic := '0';
-	signal addra, addrb: std_logic_vector(5 downto 0) := "000000";
-	signal addrc: std_logic_vector(5 downto 0) := "000001";
-	signal daout, dbout: std_logic_vector(7 downto 0) := "00000000";
-	signal dcin: std_logic_vector(7 downto 0) := "00000011";
+	signal addr1, addr2: std_logic_vector(5 downto 0) := "000000";
+	signal addrw: std_logic_vector(5 downto 0) := "000001";
+	signal d1out, d2out: std_logic_vector(7 downto 0) := "00000000";
+	signal dwin: std_logic_vector(7 downto 0) := "00000011";
 	constant CLK_period: time := 10 ns;
 begin
 	UMRAM: MRAM port map(
 		RW => rw,
 		CLK => clk,
-		ADDRA => addra,
-		ADDRB => addrb,
-		ADDRC => addrc,
-		DAOUT => daout,
-		DBOUT => dbout,
-		DCIN => dcin
+		ADDR1 => addr1,
+		ADDR2 => addr2,
+		ADDRW => addrW,
+		D1OUT => d1out,
+		D2OUT => d2out,
+		DWIN => dwin
 	);
 	
 	CLK_Process: process
@@ -46,19 +46,19 @@ begin
 	begin
 		wait for 1 * CLK_PERIOD;
 		
-		addrc <= "000010";
-		dcin <= "00000100";
+		addrw <= "000010";
+		dwin <= "00000100";
 		
 		wait for 1 * CLK_PERIOD;
 		
-		addra <= "000001";
-		addrb <= "000010";
+		addr1 <= "000001";
+		addr2 <= "000010";
 		rw <= '1';
 		
 		wait for 1 * CLK_PERIOD;
 		
-		addrc <= "000000";
-		dcin <= "00010000";
+		addrw <= "000000";
+		dwin <= "00010000";
 		rw <= '0';
 		
 		wait for 1 * CLK_PERIOD;

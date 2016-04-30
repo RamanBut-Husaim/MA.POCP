@@ -7,18 +7,18 @@ entity MROM is
 	port (
 		RE: in std_logic;
 		ADDR: in std_logic_vector(5 downto 0);
-		DOUT: out std_logic_vector(17 downto 0)
+		DOUT: out std_logic_vector(20 downto 0)
 	);
 end MROM;
 
 architecture Beh_GPR of MROM is
-	subtype inst is std_logic_vector(17 downto 0);
+	subtype inst is std_logic_vector(20 downto 0);
 	type tROM is array (0 to 63) of inst;
 	
 	constant ROM: tROM :=(
 --   	OP CODE   | RAM ADDRA       | RAM ADDRB       | RAM ADDRC       |   N BIN       | N DEC  | Info
 		
-		others => OP_HALT & "000000000000000"
+		others => OP_HALT & "000000000000000000"
 	);
 	
 	signal data: inst;
