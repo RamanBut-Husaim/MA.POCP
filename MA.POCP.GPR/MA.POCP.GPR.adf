@@ -31,3 +31,7 @@ SortingGPR=.
 Active_lib=
 [SpecTracer]
 WindowVisible=0
+[Files]
+/MRAM.vhd=-1
+[Files.Data]
+.\src\MRAM.vhd=VHDL Source Code
