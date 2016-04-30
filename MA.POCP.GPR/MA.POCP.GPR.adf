@@ -3,10 +3,13 @@ Current Flow=Generic
 VCS=0
 version=3
 Current Config=compile
+
 [Configurations]
 compile=SortingGPR
+
 [Library]
 SortingGPR=.\SortingGPR\SortingGPR.lib
+
 [Settings]
 AccessRead=0
 AccessReadWrite=0
@@ -21,17 +24,30 @@ LANGUAGE=VHDL
 FLOWTOOLS=NONE
 REFRESH_FLOW=1
 FAMILY=
+
 [LocalVerilogSets]
 EnableSLP=1
 EnableDebug=0
+
 [LocalVhdlSets]
 CompileWithDebug=1
+
 [$LibMap$]
 SortingGPR=.
 Active_lib=
+
 [SpecTracer]
 WindowVisible=0
+
 [Files]
 /MRAM.vhd=-1
+Testbences/MRAM_t.vhd=-1
+
 [Files.Data]
 .\src\MRAM.vhd=VHDL Source Code
+.\src\MRAM_t.vhd=VHDL Source Code
+.\src\Testbences\MRAM_t.vhd=VHDL Source Code
+
+[Groups]
+Testbences=1
+
