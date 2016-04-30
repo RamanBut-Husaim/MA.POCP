@@ -2,7 +2,15 @@
 Version=10.3
 [Designs]
 MA.POCP=MA.POCP.adf
+ma.pocp.gpr=.\MA.POCP.GPR\MA.POCP.GPR.adf
 [Settings]
-Active=MA.POCP
+Active=ma.pocp.gpr
 [Expand]
 ma.pocp=1
+ma.pocp.gpr=1
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=

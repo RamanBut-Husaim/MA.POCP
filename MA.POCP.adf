@@ -58,3 +58,25 @@ Testbenches/sortmanager_t.vhd=-1
 .\src\Sorting\SortManager.vhd=VHDL Source Code
 .\src\Testbenches\sortmanager_t.vhd=VHDL Source Code
 
+[SpecTracer]
+WindowVisible=0
+[HierarchyViewer]
+HierarchyInformation=sortmanager_t|Beh|0  
+ShowHide=ShowTopLevel
+Selected=
+[Folders]
+Name3=Makefiles
+Directory3=e:\Development\MyProjects\MACourse\MA.POCP\
+Extension3=mak
+Name4=Memory
+Directory4=e:\Development\MyProjects\MACourse\MA.POCP\
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=e:\Development\MyProjects\MACourse\MA.POCP\
+Extension5=dll
+Name6=PDF
+Directory6=e:\Development\MyProjects\MACourse\MA.POCP\
+Extension6=pdf
+Name7=HTML
+Directory7=e:\Development\MyProjects\MACourse\MA.POCP\
+Extension7=htm;html
