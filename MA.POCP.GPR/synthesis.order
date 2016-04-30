@@ -4,3 +4,5 @@ i<>.\src\MROM.vhd
 i<>.\src\Constants.vhd
 i<>.\src\DPATH.vhd
 i<>.\src\CTRL1.vhd
+i<>.\src\SortManager.vhd
+i<>.\src\sortmanager_t.vhd

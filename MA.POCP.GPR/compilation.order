@@ -3,4 +3,6 @@
 .\src\Constants.vhd
 .\src\DPATH.vhd
 .\src\CTRL1.vhd
+.\src\Testbences\sortmanager_t.vhd
 .\src\Testbences\MRAM_t.vhd
+.\src\Sorting\SortManager.vhd
