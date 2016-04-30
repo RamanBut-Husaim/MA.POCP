@@ -1,4 +1,5 @@
 .\src\MRAM.vhd
 .\src\MROM.vhd
 .\src\Constants.vhd
+.\src\DPATH.vhd
 .\src\Testbences\MRAM_t.vhd
