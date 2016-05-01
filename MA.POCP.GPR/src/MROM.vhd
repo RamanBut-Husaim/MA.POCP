@@ -28,34 +28,34 @@ architecture Beh_GPR of MROM is
 	
 	constant ROM: tROM :=(
 --   	OP CODE   | RAM ADDRA       | RAM ADDRB       | RAM ADDRW       |   N BIN       | N DEC  | Info
-		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_I,		    -- 000001		| 001    | zero i
-		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_J,			-- 000010       | 002    | zero j
+		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_I,		    -- 000000		| 000    | zero i
+		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_J,			-- 000001       | 001    | zero j
 		-- Start: outer loop
-		OP_SUB    & ADDR_LENGTH_1   & ADDR_I          & ADDR_TEMP1,     -- 000011       | 003    | m2: [Start outer loop]
-		OP_JZ     & "010100"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000100       | 004    | jump to m1 [if i == length - 1 - finish outer loop]
+		OP_SUB    & ADDR_LENGTH_1   & ADDR_I          & ADDR_TEMP1,     -- 000010       | 002    | m2: [Start outer loop]
+		OP_JZ     & "010011"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000011       | 003    | jump to m1 [if i == length - 1 - finish outer loop]
 		-- Start: inner loop
-		OP_ADD    & ADDR_I          & ADDR_ONE        & ADDR_J,         -- 000101       | 005    | j = i + 1  
-		OP_SUB    & ADDR_LENGTH     & ADDR_J          & ADDR_TEMP1,     -- 000110       | 006    | m4: [Start inner loop]
-		OP_JZ     & "010001"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000111       | 007    | jump to m3
+		OP_ADD    & ADDR_I          & ADDR_ONE        & ADDR_J,         -- 000100       | 004    | j = i + 1  
+		OP_SUB    & ADDR_LENGTH     & ADDR_J          & ADDR_TEMP1,     -- 000101       | 005    | m4: [Start inner loop]
+		OP_JZ     & "010000"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000110       | 006    | jump to m3
 		
-		OP_COPYINTO & ADDR_I        & EMPTY_ADDR      & ADDR_TEMP1,     -- 001000       | 008    | copy a[i] to temp1
-		OP_COPYINTO & ADDR_J       	& EMPTY_ADDR      & ADDR_TEMP2,     -- 001001       | 009    | copy a[j] to temp2
-		OP_SUB    &	ADDR_TEMP2      & ADDR_TEMP1      &	ADDR_TEMP3,     -- 001010       | 010    | a[j] - a[i]
-		OP_JNSB   & "001110"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 001011       | 011    | jump to m5
+		OP_COPYINTO & ADDR_I        & EMPTY_ADDR      & ADDR_TEMP1,     -- 000111       | 007    | copy a[i] to temp1
+		OP_COPYINTO & ADDR_J       	& EMPTY_ADDR      & ADDR_TEMP2,     -- 001000       | 008    | copy a[j] to temp2
+		OP_SUB    &	ADDR_TEMP1      & ADDR_TEMP2      &	ADDR_TEMP3,     -- 001001       | 009    | a[i] - a[j]
+		OP_JNSB   & "001101"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 001010       | 010    | jump to m5
 		-- Swap values
-		OP_COPYTOIN & ADDR_TEMP1    & ADDR_J          & EMPTY_ADDR,     -- 001100       | 012    | copy temp1 (a[i]) to a[j]
-		OP_COPYTOIN & ADDR_TEMP2    & ADDR_I          & EMPTY_ADDR,     -- 001101       | 013    | copy temp2 (a[j]) to a[i]
+		OP_COPYTOIN & ADDR_TEMP1    & ADDR_J          & EMPTY_ADDR,     -- 001011       | 011    | copy temp1 (a[i]) to a[j]
+		OP_COPYTOIN & ADDR_TEMP2    & ADDR_I          & EMPTY_ADDR,     -- 001100       | 012    | copy temp2 (a[j]) to a[i]
 		
-		OP_ADD    & ADDR_J          & ADDR_ONE        & ADDR_J,         -- 001110       | 014    | m5: j++
-		OP_ADD    & ADDR_ZERO       & ADDR_ZERO		  & ADDR_ZERO,      -- 001111       | 015    |
-		OP_JZ     & "000110"        & EMPTY_ADDR      & EMPTY_ADDR,		-- 010000       | 016    | jump to m4: end inner loop
+		OP_ADD    & ADDR_J          & ADDR_ONE        & ADDR_J,         -- 001101       | 013    | m5: j++
+		OP_ADD    & ADDR_ZERO       & ADDR_ZERO		  & ADDR_ZERO,      -- 001110       | 014    |
+		OP_JZ     & "000101"        & EMPTY_ADDR      & EMPTY_ADDR,		-- 001111       | 015    | jump to m4: end inner loop
 		-- End: inner loop
 			
-		OP_ADD    & ADDR_I          & ADDR_ONE        & ADDR_I,         -- 010001       | 017    | m3: i++
-		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_ZERO,      -- 010010       | 018    |
-		OP_JZ     & "000011"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 010011       | 019    | jump to m2
+		OP_ADD    & ADDR_I          & ADDR_ONE        & ADDR_I,         -- 010000       | 016    | m3: i++
+		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_ZERO,      -- 010001       | 017    |
+		OP_JZ     & "000010"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 010010       | 018    | jump to m2
 		-- End: outer loop
-		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_TEMP1,     -- 010100       | 020    | m1	
+		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_TEMP1,     -- 010011       | 019    | m1	
 		
 		others => OP_HALT & "000000000000000000"
 	);

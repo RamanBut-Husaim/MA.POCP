@@ -116,8 +116,8 @@ begin
 			when CPYIT => nxt_state <= CPYITR;
 			when CPYTI => nxt_state <= CPYTIR;
 			when CPYITR | CPYTIR => nxt_state <= M;
-			when A | SB | JSB | JZ | M => nxt_state <= W;
-			when W => nxt_state <= F;
+			when A | SB | M => nxt_state <= W;
+			when W | JZ | JSB => nxt_state <= F;
 			when H => nxt_state <= H;
 			when others => nxt_state <= I;
 		end case;
