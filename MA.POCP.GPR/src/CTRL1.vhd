@@ -34,7 +34,7 @@ entity CTRL1 is
 end CTRL1;
 
 architecture Beh_GPR of CTRL1 is
-	type states is (I, F, D, R, W, A, SB, H, JSB, RIN, LIN, XIN, JZ);
+	type states is (I, F, D, R, W, A, SB, H, JSB, CPYIT, CPYITR, M, CPYTI, CPYTIR, JZ);
 	-- I - idle
 	-- F - fetch
 	-- D - decode
@@ -44,9 +44,11 @@ architecture Beh_GPR of CTRL1 is
 	-- SB - sub
 	-- H - halt
 	-- JSB - jump if not sign bit set
-	-- RIN - read after load indirect
-    -- LIN - load indirect
-	-- XIN - xor indirect
+	-- CPYIT - copy indirect to, CPYIT [addr1], empty, addrw - load ra_1 from rd_1
+	-- CPYITR - copy indirect to, read - RD_1 = RAM[RA_1]
+	-- M - move the value from RD_1 to RD_W
+	-- CPYTI - copy to indirect, CPYTI addr1, [addrw], empty - load ra_2 from rd_2
+	-- CPYTIR - copy to indirect, read - RA_W = RA_2
 	-- JZ -  jump if sign bit set
 	signal nxt_state, cur_state: states;
 	-- instruction register
@@ -104,14 +106,17 @@ begin
 					nxt_state <= A;
 				elsif (RO = OP_SUB) then
 					nxt_state <= SB;
-				elsif (RO = OP_XORIN) then
-					nxt_state <= LIN;
+				elsif (RO = OP_COPYINTO) then
+					nxt_state <= CPYIT;
+				elsif (RO = OP_COPYTOIN) then
+					nxt_state <= CPYTI;
 				else
 					nxt_state <= I;
 				end if;
-			when LIN => nxt_state <= RIN;
-			when RIN => nxt_state <= XIN;
-			when A | SB | JSB | JZ | XIN => nxt_state <= W;
+			when CPYIT => nxt_state <= CPYITR;
+			when CPYTI => nxt_state <= CPYTIR;
+			when CPYITR | CPYTIR => nxt_state <= M;
+			when A | SB | JSB | JZ | M => nxt_state <= W;
 			when W => nxt_state <= F;
 			when H => nxt_state <= H;
 			when others => nxt_state <= I;
@@ -179,10 +184,12 @@ begin
 			RA_1 <= RI (17 downto 12);
 			RA_2 <= RI (11 downto 6);
 			RA_W <= RI (5 downto 0);
-		elsif (nxt_state = LIN) then
+		elsif (nxt_state = CPYIT) then
 			RA_1 <= RD_1 (5 downto 0);
+	    elsif (nxt_state = CPYTI) then
 			RA_2 <= RD_2 (5 downto 0);
-			RA_W <= RD_1 (5 downto 0);
+		elsif (nxt_state = CPYTIR) then
+			RA_W <= RA_2;
 		end if;
 	end process;
 	
@@ -208,9 +215,11 @@ begin
 	-- read values from RAM and store them in RD_1 and RD_2 registers
 	PRAMDAR: process (cur_state)
 	begin
-		if (cur_state = R or cur_state = RIN) then
+		if (cur_state = R) then
 			RD_1 <= RAM_d1out;
 			RD_2 <= RAM_d2out;
+		elsif (cur_state = CPYITR) then
+			RD_1 <= RAM_d1out;
 		end if;
 	end process;
 	
@@ -225,7 +234,7 @@ begin
 	
 	paddsuben: process (cur_state)
 	begin
-		if (cur_state = A or cur_state = SB or cur_state = XIN) then
+		if (cur_state = A or cur_state = SB or cur_state = M) then
 			DP_en <= '1';
 		else
 			DP_en <= '0';

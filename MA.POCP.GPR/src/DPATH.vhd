@@ -26,20 +26,20 @@ architecture Beh_GPR of DPATH is
 	signal res_g: std_logic_vector(7 downto 0);
 	signal res_add: std_logic_vector(7 downto 0);
 	signal res_sub: std_logic_vector (7 downto 0);
-	signal res_xor: std_logic_vector (7 downto 0);
+	signal res_copy: std_logic_vector (7 downto 0);
 	signal t_sbf, t_zf: std_logic;
 Begin
 	res_add <= CONV_STD_LOGIC_VECTOR(CONV_INTEGER(OP1) + CONV_INTEGER(OP2), 8);
 	res_sub <= CONV_STD_LOGIC_VECTOR(CONV_INTEGER(OP1) - CONV_INTEGER(OP2), 8);
-	res_xor <= OP1 XOR OP2;
+	res_copy <= OP1;
 	
-	REGA: process (EN, OT, OP1, res_add, res_sub, res_xor)
+	REGA: process (EN, OT, OP1, res_add, res_sub, res_copy)
 	begin
 		if rising_edge(EN) then
 			case OT is
 				when OP_ADD => res_g <= res_add;
 				when OP_SUB => res_g <= res_sub;
-				when OP_XORIN => res_g <= res_xor;
+				when OP_COPYTOIN | OP_COPYINTO => res_g <= res_copy;
 				when others => null;
 			end case;
 		end if;

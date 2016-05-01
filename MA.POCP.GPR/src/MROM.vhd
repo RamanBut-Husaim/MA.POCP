@@ -15,6 +15,7 @@ architecture Beh_GPR of MROM is
 	subtype inst is std_logic_vector(20 downto 0);
 	type tROM is array (0 to 63) of inst;
 	
+	constant EMPTY_ADDR: std_logic_vector(5 downto 0) := "111111";
 	constant ADDR_ONE: std_logic_vector(5 downto 0) := "001110";
 	constant ADDR_ZERO: std_logic_vector(5 downto 0) := "001111";
 	constant ADDR_LENGTH: std_logic_vector(5 downto 0) := "001010";
@@ -25,9 +26,17 @@ architecture Beh_GPR of MROM is
 	constant ADDR_TEMP2: std_logic_vector(5 downto 0) := "010001";
 	
 	constant ROM: tROM :=(
---   	OP CODE   | RAM ADDRA       | RAM ADDRB       | RAM ADDRC       |   N BIN       | N DEC  | Info
+--   	OP CODE   | RAM ADDRA       | RAM ADDRB       | RAM ADDRW       |   N BIN       | N DEC  | Info
 		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_I,		    -- 000001		| 001    | zero i
 		OP_ADD    & ADDR_ZERO       & ADDR_ZERO       & ADDR_J,			-- 000010       | 002    | zero j
+		-- Start: outer loop
+		OP_SUB    & ADDR_LENGTH_1   & ADDR_I          & ADDR_TEMP1,     -- 000011       | 003    | m2: [Start outer loop]
+		OP_JZ     & "111111"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000100       | 004    | jump to m1 [if i == length - 1 - finish outer loop]
+		-- Start: inner loop
+		OP_ADD    & ADDR_I          & ADDR_ONE        & ADDR_J,         -- 000101       | 005    | j = i + 1  
+		OP_SUB    & ADDR_LENGTH     & ADDR_J          & ADDR_TEMP1,     -- 000110       | 006    | m4: [Start inner loop]
+		OP_JZ     & "111111"        & EMPTY_ADDR      & EMPTY_ADDR,     -- 000111       | 007    | jump to m3
+		
 		
 		
 		others => OP_HALT & "000000000000000000"
