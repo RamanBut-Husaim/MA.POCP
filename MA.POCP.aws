@@ -3,11 +3,13 @@ Version=10.3
 [Designs]
 MA.POCP=MA.POCP.adf
 ma.pocp.gpr=.\MA.POCP.GPR\MA.POCP.GPR.adf
+ma.pocp.stack=.\MA.POCP.Stack\MA.POCP.Stack.adf
 [Settings]
-Active=ma.pocp.gpr
+Active=ma.pocp.stack
 [Expand]
 ma.pocp=1
 ma.pocp.gpr=1
+ma.pocp.stack=1
 [Browser]
 sort=order
 mode=none

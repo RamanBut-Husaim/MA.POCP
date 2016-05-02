@@ -39,17 +39,6 @@ Active_lib=
 [SpecTracer]
 WindowVisible=0
 
-[Files.Data]
-.\src\MRAM.vhd=VHDL Source Code
-.\src\MROM.vhd=VHDL Source Code
-.\src\Constants.vhd=VHDL Source Code
-.\src\DPATH.vhd=VHDL Source Code
-.\src\CTRL1.vhd=VHDL Source Code
-.\src\sortmanager_t.vhd=VHDL Source Code
-.\src\Testbences\MRAM_t.vhd=VHDL Source Code
-.\src\Sorting\SortManager.vhd=VHDL Source Code
-.\src\Testbences\sortmanager_t.vhd=VHDL Source Code
-
 [Groups]
 Testbences=1
 Sorting=1
@@ -64,3 +53,33 @@ Testbences/sortmanager_t.vhd=-1
 Testbences/MRAM_t.vhd=-1
 Sorting/SortManager.vhd=-1
 
+[Files.Data]
+.\src\MRAM.vhd=VHDL Source Code
+.\src\MROM.vhd=VHDL Source Code
+.\src\Constants.vhd=VHDL Source Code
+.\src\DPATH.vhd=VHDL Source Code
+.\src\CTRL1.vhd=VHDL Source Code
+.\src\Testbences\sortmanager_t.vhd=VHDL Source Code
+.\src\Testbences\MRAM_t.vhd=VHDL Source Code
+.\src\Sorting\SortManager.vhd=VHDL Source Code
+
+[HierarchyViewer]
+HierarchyInformation=mram|Beh_GPR|0 mram_t|Beh|0 sortmanager_t|Beh_GPR|0 
+ShowHide=ShowTopLevel
+Selected=
+[Folders]
+Name3=Makefiles
+Directory3=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.GPR\
+Extension3=mak
+Name4=Memory
+Directory4=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.GPR\
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.GPR\
+Extension5=dll
+Name6=PDF
+Directory6=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.GPR\
+Extension6=pdf
+Name7=HTML
+Directory7=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.GPR\
+Extension7=htm;html
