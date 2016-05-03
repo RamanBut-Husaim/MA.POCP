@@ -3,10 +3,12 @@ Current Flow=Generic
 VCS=0
 version=3
 Current Config=compile
+
 [Configurations]
-compile=MA.POCP.Stack
+compile=sortingstack
+
 [Library]
-MA.POCP.Stack=.\MA.POCP.Stack\MA.POCP.Stack.lib
+
 [Settings]
 AccessRead=0
 AccessReadWrite=0
@@ -21,13 +23,47 @@ LANGUAGE=VHDL
 FLOWTOOLS=NONE
 REFRESH_FLOW=1
 FAMILY=
+
 [LocalVerilogSets]
 EnableSLP=1
 EnableDebug=0
+
 [LocalVhdlSets]
 CompileWithDebug=1
+
 [$LibMap$]
-MA.POCP.Stack=.
 Active_lib=
+sortingstack=.
+
 [SpecTracer]
 WindowVisible=0
+
+[Files]
+/LIFO.vhd=-1
+Testbenches/LIFO_T.vhd=-1
+
+[Files.Data]
+.\src\LIFO.vhd=VHDL Source Code
+.\src\LIFO_T.vhd=VHDL Source Code
+.\src\Testbenches\LIFO_T.vhd=VHDL Source Code
+
+[Folders]
+Name3=Makefiles
+Directory3=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
+Extension3=mak
+Name4=Memory
+Directory4=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
+Extension5=dll
+Name6=PDF
+Directory6=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
+Extension6=pdf
+Name7=HTML
+Directory7=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
+Extension7=htm;html
+
+[Groups]
+Testbenches=1
+

@@ -1,0 +1,46 @@
+[Project]
+Current Flow=Multivendor
+VCS=0
+version=3
+Current Config=compile
+[Configurations]
+compile=sortingstack
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+[LocalVhdlSets]
+CompileWithDebug=1
+[Library]
+sortingstack=.\sortingstack\sortingstack.LIB
+[$LibMap$]
+sortingstack=.
+[SpecTracer]
+WindowVisible=0
+[Folders]
+Name3=Makefiles
+Directory3=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\sortingstack\
+Extension3=mak
+Name4=Memory
+Directory4=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\sortingstack\
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\sortingstack\
+Extension5=dll
+Name6=PDF
+Directory6=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\sortingstack\
+Extension6=pdf
+Name7=HTML
+Directory7=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\sortingstack\
+Extension7=htm;html

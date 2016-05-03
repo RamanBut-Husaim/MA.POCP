@@ -10,6 +10,7 @@ Active=ma.pocp.stack
 ma.pocp=1
 ma.pocp.gpr=1
 ma.pocp.stack=1
+sortingstack=0
 [Browser]
 sort=order
 mode=none
