@@ -7,7 +7,7 @@ ma.pocp.stack=.\MA.POCP.Stack\MA.POCP.Stack.adf
 [Settings]
 Active=ma.pocp.stack
 [Expand]
-ma.pocp=1
+ma.pocp=0
 ma.pocp.gpr=1
 ma.pocp.stack=1
 sortingstack=0

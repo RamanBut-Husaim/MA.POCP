@@ -1,4 +1,4 @@
-															 library IEEE;
+library IEEE;
 use IEEE.STD_LOGIC_1164.all; 
 use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
@@ -15,6 +15,7 @@ architecture Beh of LIFO_T is
 			n: integer := 2
 		);
 		port (
+		    EN: in std_logic;
 			-- synchronization
 			CLK: in std_logic;
 			-- write/read operation type
@@ -30,6 +31,7 @@ architecture Beh of LIFO_T is
 	signal WR: std_logic := '1';
 	signal data_rb: std_logic_vector(7 downto 0);
 	signal data_wb: std_logic_vector(7 downto 0);
+	signal en: std_logic := '1';
 
 	constant CLK_Period: time := 10 ns;
 begin
@@ -39,6 +41,7 @@ begin
 		n => 8
 	)
 	port map(
+		EN => en,
 		CLK => CLK,
 		WR => WR,
 		RB => data_rb,

@@ -11,6 +11,7 @@ entity LIFO is
 		n: integer := 2
 	);
 	port (
+		EN: in std_logic;
 		-- synchronization
 		CLK: in std_logic;
 		-- write/read operation type
@@ -37,14 +38,16 @@ architecture Beh of LIFO is
 Begin
 	SH: process (CLK)
 	begin
-		if rising_edge(CLK) then
-			if (WR = '0') then
-				if (head <= Limit) then
-					head <= head + 1;
-				end if;
-			elsif (WR = '1') then
-				if (head > 0) then
-					head <= head - 1;
+		if (EN = '1') then
+			if rising_edge(CLK) then
+				if (WR = '0') then
+					if (head <= Limit) then
+						head <= head + 1;
+					end if;
+				elsif (WR = '1') then
+					if (head > 0) then
+						head <= head - 1;
+					end if;
 				end if;
 			end if;
 		end if;
@@ -52,28 +55,24 @@ Begin
 	
 	data_wb <= WB;
 	
-	WRP: process (head)
+	WRP: process (CLK, head, data_wb)
 	begin
-		if rising_edge(CLK) then
-			if WR = '0' then
-				if (head > 0 and head <= Limit + 1) then 
-					sRAM(head - 1) <= data_wb;
+		if (EN = '1') then
+			if rising_edge(CLK) then
+				if WR = '0' then
+					sRAM(head) <= data_wb;
 				end if;
 			end if;
 		end if;
 	end process;
 	
-	RDP: process(head)
+	RDP: process(CLK, head)
 	begin
-		if rising_edge(CLK) then
-			if WR = '1' then
-				if (head >= 0 and head <= Limit) then
+		if (EN = '1') then
+			if rising_edge(CLK) then
+				if WR = '1' then
 					data_rb <= sRAM (head);
-				else
-					data_rb <= (others => 'Z');
 				end if;
-			else
-				data_rb <= (others => 'Z');
 			end if;
 		end if;
 	end process;

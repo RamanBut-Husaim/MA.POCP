@@ -40,7 +40,7 @@ Active_lib=
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=mram|Beh_GPR|0 mram_t|Beh|0 sortmanager_t|Beh_GPR|0
+HierarchyInformation=sortmanager_t|Beh_GPR|0 
 ShowHide=ShowTopLevel
 Selected=
 

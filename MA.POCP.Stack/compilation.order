@@ -1,2 +1,4 @@
 .\src\LIFO.vhd
+.\src\DPATH.vhd
+.\src\Constants.vhd
 .\src\Testbenches\LIFO_T.vhd
