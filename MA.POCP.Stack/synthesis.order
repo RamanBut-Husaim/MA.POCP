@@ -2,3 +2,4 @@ i<>.\src\LIFO.vhd
 i<>.\src\LIFO_T.vhd
 i<>.\src\DPATH.vhd
 i<>.\src\Constants.vhd
+i<>.\src\DPATH_T.vhd
