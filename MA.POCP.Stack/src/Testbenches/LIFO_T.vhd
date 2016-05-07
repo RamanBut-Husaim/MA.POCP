@@ -28,10 +28,10 @@ architecture Beh of LIFO_T is
 	end component;
 	
 	signal CLK: std_logic := '0';
-	signal WR: std_logic := '1';
+	signal WR: std_logic := '0';
 	signal data_rb: std_logic_vector(7 downto 0);
 	signal data_wb: std_logic_vector(7 downto 0);
-	signal en: std_logic := '1';
+	signal en: std_logic := '0';
 
 	constant CLK_Period: time := 10 ns;
 begin
@@ -59,6 +59,7 @@ begin
 	MAIN: process
 	begin
 		wait for clk_period;
+		en <= '1';
 		WR <= '0';
 		data_wb <= "00000001";
 		wait for clk_period;
@@ -70,6 +71,8 @@ begin
 		wait for clk_period;
 		wait for clk_period;
 		wait for clk_period;
+		en <= '0';
+		
 		wait;
 	end process;
 end Beh;
