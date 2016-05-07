@@ -47,7 +47,15 @@ architecture Beh_Stack of DPATH is
 	
 
 	type states is (I, IPOP1, IPOP2, ADD, SUB, IPUSH, MOVERES, MOVERESOP, H);
-	
+	-- I - Idle - the initial state for operations
+	-- IPOP1 - POP 1 - pop the value and put it into the first internal operand i_op1
+	-- IPOP2 - POP 2 - pop the value and put it into the second internal operand i_op2
+	-- ADD - res_op = i_op1 + i_op2
+	-- SUB - res_op = i_op1 - i_op2
+	-- IPUSH - PUSH - push the value of res_op to the stack
+	-- MOVERES - i_res = i_op1 - used in external POP operation
+	-- MOVERESOP - res_op = i_op - used in external push operation
+	-- H - Halt - indicates that the processing has been completed
 	signal nxt_state, cur_state: states;
 	
 	-- operation result
