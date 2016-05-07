@@ -10,7 +10,7 @@ entity DPATH is
 		-- synchronization
 		CLK: in std_logic;
 		-- operation type
-		OT: in std_logic_vector(2 downto 0);
+		OT: in std_logic_vector(3 downto 0);
 		-- operand
 		OP: in std_logic_vector(7 downto 0);
 		-- result
@@ -83,11 +83,9 @@ Begin
 	
 	i_op <= OP;
 		
-	FSM: process(CLK, EN, nxt_state)
+	FSM: process(CLK, nxt_state)
 	begin
-		if (EN = '1') then
-			cur_state <= I;
-		elsif rising_edge(CLK) then
+		if rising_edge(CLK) then
 			cur_state <= nxt_state;
 		end if;
 	end process;
@@ -129,7 +127,7 @@ Begin
 			when ADD | SUB | MOVERESOP => nxt_state <= IPUSH;
 			when MOVERES => nxt_state <= H;
 			when IPUSH => nxt_state <= H;
-			when H => nxt_state <= H;
+			when H => nxt_state <= I;
 			when others => nxt_state <= I;
 		end case;
 	end process;
@@ -144,12 +142,12 @@ Begin
 		end if;
 	end process;
 	
-	STACKCTRL: process (cur_state)
+	STACKCTRL: process (cur_state, nxt_state)
 	begin
-		if (cur_state = IPOP1) then
+		if (nxt_state = IPOP1) then
 			s_wr <= '1';
 			s_en <= '1';
-		elsif (cur_state = IPOP2) then
+		elsif (nxt_state = IPOP2) then
 			s_wr <= '1';
 			s_en <= '1';
 		elsif (cur_state = IPUSH) then

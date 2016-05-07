@@ -33,21 +33,15 @@ architecture Beh of LIFO is
 	signal head: integer := 0;
 	signal data_rb: std_logic_vector(n-1 downto 0);
 	signal data_wb: std_logic_vector(n-1 downto 0); 
-	
-	constant Limit: integer := 2 ** m -1;
 Begin
 	SH: process (CLK)
 	begin
 		if (EN = '1') then
 			if rising_edge(CLK) then
 				if (WR = '0') then
-					if (head <= Limit) then
-						head <= head + 1;
-					end if;
+					head <= head + 1;
 				elsif (WR = '1') then
-					if (head > 0) then
-						head <= head - 1;
-					end if;
+					head <= head - 1;
 				end if;
 			end if;
 		end if;
@@ -71,7 +65,7 @@ Begin
 		if (EN = '1') then
 			if rising_edge(CLK) then
 				if WR = '1' then
-					data_rb <= sRAM (head);
+					data_rb <= sRAM (head - 1);
 				end if;
 			end if;
 		end if;
