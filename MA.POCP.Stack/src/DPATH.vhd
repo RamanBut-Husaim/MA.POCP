@@ -199,15 +199,15 @@ Begin
 		end if;
 	end process;
 	
-	FLAGS: process(i_res)
+	FLAGS: process(res_op)
 	begin
-		if i_res = (i_res'range => '0') then
+		if res_op = (res_op'range => '0') then
             t_zf <= '1';
         else
             t_zf <= '0';
         end if;
 		 
-		if i_res(7) = '1' then
+		if res_op(7) = '1' then
 			t_sbf <= '1';
 		else
 			t_sbf <= '0';
@@ -215,7 +215,7 @@ Begin
 	end process;
 	
 	s_data <= res_op;
-	res <= i_res;
+	RES <= i_res;
 	SBF <= t_sbf;
 	ZF <= t_zf;
 End Beh_Stack;
