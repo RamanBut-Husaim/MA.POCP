@@ -4,11 +4,12 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity MRAM is
 	port (
+		CLK: in std_logic;
 		RW: in std_logic;
-		ADR: in std_logic_vector(5 downto 0);
+		ADDR: in std_logic_vector(5 downto 0);
 		DIN: in std_logic_vector (7 downto 0);
 		DOUT: out std_logic_vector (7 downto 0)
-		);
+	);
 end MRAM;
 
 architecture Beh_Sorting of MRAM is
@@ -41,16 +42,19 @@ architecture Beh_Sorting of MRAM is
 	signal data_out: byte;
 Begin
 	data_in <= Din;
-	WRITE: process (RW, ADR, data_in)
+	
+	WRITE: process (CLK, RW, ADDR, data_in)
 	begin
 		if (RW = '0') then
-			RAM(conv_integer(adr)) <= data_in;
+			if (rising_edge(CLK)) then
+				RAM(conv_integer(ADDR)) <= data_in;
+			 end if;
 		end if;
 	end process; 
 	
-	data_out <= RAM (conv_integer(adr));
+	data_out <= RAM (conv_integer(ADDR));
 	
-	ZBUFS: process (RW, data_out)
+	RDP: process (RW, RAM, data_out)
 	begin
 		if (RW = '1') then
 			DOUT <= data_out;

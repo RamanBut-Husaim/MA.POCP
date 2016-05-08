@@ -13,15 +13,16 @@ architecture Beh of SortManager is
 	component MROM is
 		port (
 			RE: in std_logic;
-			ADR: in std_logic_vector(5 downto 0);
+			ADDR: in std_logic_vector(5 downto 0);
 			DOUT: out std_logic_vector(9 downto 0)
 			);
 	end component;
 	
 	component MRAM is
 		port (
+			CLK: in std_logic;
 			RW: in std_logic;
-			ADR: in std_logic_vector(5 downto 0);
+			ADDR: in std_logic_vector(5 downto 0);
 			DIN: in std_logic_vector (7 downto 0);
 			DOUT: out std_logic_vector (7 downto 0)
 			);
@@ -49,12 +50,12 @@ architecture Beh of SortManager is
 			
 			-- ROM
 			ROM_re: out std_logic;
-			ROM_adr: out std_logic_vector(5 downto 0);
+			ROM_addr: out std_logic_vector(5 downto 0);
 			ROM_dout: in std_logic_vector(9 downto 0);
 			
 			-- RAM
 			RAM_rw: out std_logic;
-			RAM_adr: out std_logic_vector(5 downto 0);
+			RAM_addr: out std_logic_vector(5 downto 0);
 			RAM_din: out std_logic_vector(7 downto 0);
 			RAM_dout: in std_logic_vector(7 downto 0);
 			
@@ -69,10 +70,10 @@ architecture Beh of SortManager is
 	end component;
 	
 	signal rom_re: std_logic;
-	signal rom_adr: std_logic_vector(5 downto 0);
+	signal rom_addr: std_logic_vector(5 downto 0);
 	signal rom_dout: std_logic_vector(9 downto 0);
 	signal ram_rw: std_logic;
-	signal ram_adr: std_logic_vector(5 downto 0);
+	signal ram_addr: std_logic_vector(5 downto 0);
 	signal ram_din: std_logic_vector(7 downto 0);
 	signal ram_dout: std_logic_vector(7 downto 0);
 	signal dp_op1: std_logic_vector(7 downto 0);
@@ -82,15 +83,16 @@ architecture Beh of SortManager is
 	signal dp_zf: std_logic;
 	signal dp_sbf: std_logic;
 begin
-	UMRAM: entity MRAM (Beh_Sorting) port map(
+	UMRAM: MRAM port map(
+		CLK => CLK,
 		RW => ram_rw,
-		ADR => ram_adr,
+		ADDR => ram_addr,
 		DIN => ram_din,
 		DOUT => ram_dout
 		);
-	UMROM: entity MROM (Beh_Sorting) port map (
+	UMROM: MROM port map (
 		RE => rom_re,
-		ADR => rom_adr,
+		ADDR => rom_addr,
 		DOUT => rom_dout
 		);
 	UDPATH: DPATH port map(
@@ -107,10 +109,10 @@ begin
 		START => Start,
 		STOP => STOP,
 		ROM_RE => rom_re,
-		ROM_ADR => rom_adr,
+		ROM_ADDR => rom_addr,
 		ROM_DOUT => rom_dout,
 		RAM_RW => ram_rw,
-		RAM_ADR => ram_adr,
+		RAM_ADDR => ram_addr,
 		RAM_DIN => ram_din,
 		RAM_DOUT => ram_dout,
 		DP_EN => dp_en,

@@ -6,7 +6,7 @@ use Sorting_Design.all;
 entity MROM is 
 	port (
 		RE: in std_logic;
-		ADR: in std_logic_vector(5 downto 0);
+		ADDR: in std_logic_vector(5 downto 0);
 		DOUT: out std_logic_vector(9 downto 0)
 		);
 end MROM;
@@ -76,7 +76,7 @@ architecture Beh_Sorting of MROM is
 	);
 	signal data: inst;
 begin
-	data <= ROM(conv_integer(adr));
+	data <= ROM(conv_integer(addr));
 	
 	zbufs: process (RE, data)
 	begin

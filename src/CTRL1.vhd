@@ -10,12 +10,12 @@ entity CTRL1 is
 		
 		-- ROM
 		ROM_re: out std_logic;
-		ROM_adr: out std_logic_vector(5 downto 0);
+		ROM_addr: out std_logic_vector(5 downto 0);
 		ROM_dout: in std_logic_vector(9 downto 0);
 		
 		-- RAM
 		RAM_rw: out std_logic;
-		RAM_adr: out std_logic_vector(5 downto 0);
+		RAM_addr: out std_logic_vector(5 downto 0);
 		RAM_din: out std_logic_vector(7 downto 0);
 		RAM_dout: in std_logic_vector(7 downto 0);
 		--datapath
@@ -112,7 +112,7 @@ begin
 		end case;
 	end process;
 	
-	--выработка сигнала stop
+	-- stop signal
 	PSTOP: process (cur_state)
 	begin
 		if (cur_state = H) then
@@ -122,7 +122,7 @@ begin
 		end if;
 	end process;
 	
-	-- счетчик инструкций
+	-- instruction counter
 	PMC: process (CLK, RST, cur_state)
 	begin
 		if (RST = '1') then
@@ -138,9 +138,9 @@ begin
 		end if;
 	end process;
 	
-	ROM_adr <= IC;
+	ROM_addr <= IC;
 	
-	--сигнал чтения из памяти ROM
+	-- ROM read signal
 	PROMREAD: process (nxt_state, cur_state)
 	begin
 		if (nxt_state = F or cur_state = F) then
@@ -150,7 +150,7 @@ begin
 		end if;
 	end process;
 	
-	--чтение выбранного значения инструкций и запись его в RI
+	-- read ROM value and put it into RI
 	PROMDAT: process (RST, cur_state, ROM_dout)
 	begin
 		if (RST = '1') then
@@ -160,7 +160,7 @@ begin
 		end if;
 	end process;
 	
-	-- схема управления регистрами RO и RA
+	-- RO and RA control
 	PRORA: process (RST, nxt_state, RI)
 	begin
 		if (RST = '1') then
@@ -177,11 +177,11 @@ begin
 	PRAMST: process (RA)
 	begin
 		if (cur_state /= JSB and cur_state /= JZ) then
-			RAM_adr <= RA;
+			RAM_addr <= RA;
 		end if;
 	end process;
 	
-	--управляющий сигнал чтения/записи в RAM
+	-- RAM read/write control
 	PRAMREAD: process (cur_state)
 	begin
 		if (cur_state = S) then
@@ -191,7 +191,7 @@ begin
 		end if;
 	end process;
 	
-	--запись значения из памяти RAM в регистр RD
+	-- read value from RAM and put it into RD
 	PRAMDAR: process (cur_state)
 	begin
 		if (cur_state = R or cur_state = RIN) then
@@ -199,11 +199,11 @@ begin
 		end if;
 	end process;
 	
-	--передача результирующего значения тракта обработки данных на входную шину памяти RAM
+	-- move the value from DPATH to RAM input bus
 	RAM_din <= DP_res;
-	--передача значения регистра RD на вход первого операнда
+	-- move the value from RD to datapath
 	DP_op1 <= RD;
-	--передача значения регистра RO на входную шину типа операций
+	-- move RO value to DP operation bus
 	DP_ot <= RO;
 	
 	paddsuben: process (cur_state)
