@@ -69,6 +69,7 @@ Testbenches=1
 /Constants.vhd=-1
 /MRAM.vhd=-1
 /CTRL1.vhd=-1
+/MROM.vhd=-1
 Testbenches/DPATH_T.vhd=-1
 Testbenches/LIFO_T.vhd=-1
 
@@ -78,6 +79,7 @@ Testbenches/LIFO_T.vhd=-1
 .\src\Constants.vhd=VHDL Source Code
 .\src\MRAM.vhd=VHDL Source Code
 .\src\CTRL1.vhd=VHDL Source Code
+.\src\MROM.vhd=VHDL Source Code
 .\src\Testbenches\DPATH_T.vhd=VHDL Source Code
 .\src\Testbenches\LIFO_T.vhd=VHDL Source Code
 

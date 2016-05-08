@@ -3,5 +3,6 @@
 .\src\Constants.vhd
 .\src\MRAM.vhd
 .\src\CTRL1.vhd
+.\src\MROM.vhd
 .\src\Testbenches\DPATH_T.vhd
 .\src\Testbenches\LIFO_T.vhd
