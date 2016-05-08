@@ -67,7 +67,7 @@ begin
 	end process;
 	
 	-- Next state
-	COMB: process(cur_state, start, RO)
+	COMB: process(cur_state, start, RO, DP_stop)
 	begin
 		case cur_state is 
 			when I => 
