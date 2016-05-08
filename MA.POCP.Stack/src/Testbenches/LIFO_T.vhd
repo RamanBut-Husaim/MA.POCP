@@ -37,7 +37,7 @@ architecture Beh of LIFO_T is
 begin
 	ULIFO: LIFO 
 	generic map(
-		m => 5,
+		m => 2,
 		n => 8
 	)
 	port map(
@@ -68,6 +68,28 @@ begin
 		data_wb <= "00000011";
 		wait for clk_period;
 		WR <= '1';
+		wait for clk_period;
+		wait for clk_period;
+		wait for clk_period;
+		en <= '0';
+		
+		wait for clk_period;
+		en <= '1';
+		WR <= '0';
+		data_wb <= "00001001";
+		wait for clk_period;
+		data_wb <= "00001010";
+		wait for clk_period;
+		data_wb <= "00001011";
+		wait for clk_period;
+		data_wb <= "00001100";
+		wait for clk_period;
+		data_wb <= "00001101";
+		wait for clk_period;
+		en <= '0';
+		wait for clk_period;
+		WR <= '1';
+		en <= '1';
 		wait for clk_period;
 		wait for clk_period;
 		wait for clk_period;
