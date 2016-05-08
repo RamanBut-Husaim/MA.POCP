@@ -20,6 +20,7 @@ architecture Beh of SortManager is
 	
 	component MRAM is
 		port (
+			CLK: in std_logic;
 			RW: in std_logic;
 			ADDR: in std_logic_vector(5 downto 0);
 			DIN: in std_logic_vector (7 downto 0);
@@ -89,8 +90,9 @@ architecture Beh of SortManager is
 	signal dp_sbf: std_logic;
 	signal dp_stop: std_logic;
 begin
-	UMRAM: entity MRAM (Beh_Stack) 
+	UMRAM: MRAM 
 		port map(
+			CLK => CLK,
 			RW => ram_rw,
 			ADDR => ram_addr,
 			DIN => ram_din,

@@ -4,14 +4,15 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity MRAM is
 	port (
+		CLK: in std_logic;
 		RW: in std_logic;
 		ADDR: in std_logic_vector(5 downto 0);
 		DIN: in std_logic_vector (7 downto 0);
 		DOUT: out std_logic_vector (7 downto 0)
-		);
+	);
 end MRAM;
 
-architecture Beh_Stack of MRAM is
+architecture Beh_Sorting of MRAM is
 	subtype byte is std_logic_vector(7 downto 0);
 	type tRAM is array (0 to 63) of byte;
 	signal RAM: tRAM:= (
@@ -42,16 +43,18 @@ architecture Beh_Stack of MRAM is
 Begin
 	data_in <= Din;
 	
-	WRITE: process (RW, ADDR, data_in)
+	WRITE: process (CLK, RW, ADDR, data_in)
 	begin
 		if (RW = '0') then
-			RAM(conv_integer(ADDR)) <= data_in;
+			if (rising_edge(CLK)) then
+				RAM(conv_integer(ADDR)) <= data_in;
+			 end if;
 		end if;
 	end process; 
 	
 	data_out <= RAM (conv_integer(ADDR));
 	
-	ZBUFS: process (RW, data_out)
+	RDP: process (RW, RAM, data_out)
 	begin
 		if (RW = '1') then
 			DOUT <= data_out;
@@ -59,4 +62,4 @@ Begin
 			DOUT <= (others => 'Z');
 		end if;
 	end process;
-end Beh_Stack;
+end Beh_Sorting;

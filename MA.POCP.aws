@@ -5,7 +5,7 @@ MA.POCP=MA.POCP.adf
 ma.pocp.gpr=.\MA.POCP.GPR\MA.POCP.GPR.adf
 ma.pocp.stack=.\MA.POCP.Stack\MA.POCP.Stack.adf
 [Settings]
-Active=ma.pocp
+Active=ma.pocp.stack
 [Expand]
 ma.pocp=1
 ma.pocp.gpr=1
