@@ -4,3 +4,4 @@ i<>.\src\DPATH.vhd
 i<>.\src\Constants.vhd
 i<>.\src\DPATH_T.vhd
 i<>.\src\MRAM.vhd
+i<>.\src\CTRL1.vhd
