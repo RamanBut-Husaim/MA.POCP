@@ -4,5 +4,7 @@
 .\src\MRAM.vhd
 .\src\CTRL1.vhd
 .\src\MROM.vhd
+.\src\Testbenches\sortmanager_t.vhd
 .\src\Testbenches\DPATH_T.vhd
 .\src\Testbenches\LIFO_T.vhd
+.\src\Sorting\SortManager.vhd

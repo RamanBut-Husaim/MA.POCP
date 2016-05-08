@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 entity MRAM is
 	port (
 		RW: in std_logic;
-		ADR: in std_logic_vector(5 downto 0);
+		ADDR: in std_logic_vector(5 downto 0);
 		DIN: in std_logic_vector (7 downto 0);
 		DOUT: out std_logic_vector (7 downto 0)
 		);
@@ -42,14 +42,14 @@ architecture Beh_Stack of MRAM is
 Begin
 	data_in <= Din;
 	
-	WRITE: process (RW, ADR, data_in)
+	WRITE: process (RW, ADDR, data_in)
 	begin
 		if (RW = '0') then
-			RAM(conv_integer(adr)) <= data_in;
+			RAM(conv_integer(ADDR)) <= data_in;
 		end if;
 	end process; 
 	
-	data_out <= RAM (conv_integer(adr));
+	data_out <= RAM (conv_integer(ADDR));
 	
 	ZBUFS: process (RW, data_out)
 	begin

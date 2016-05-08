@@ -60,8 +60,22 @@ HierarchyInformation=lifo_t|Beh|0
 ShowHide=ShowTopLevel
 Selected=
 
+[Files.Data]
+.\src\LIFO.vhd=VHDL Source Code
+.\src\DPATH.vhd=VHDL Source Code
+.\src\Constants.vhd=VHDL Source Code
+.\src\MRAM.vhd=VHDL Source Code
+.\src\CTRL1.vhd=VHDL Source Code
+.\src\MROM.vhd=VHDL Source Code
+.\src\sortmanager_t.vhd=VHDL Source Code
+.\src\Testbenches\DPATH_T.vhd=VHDL Source Code
+.\src\Testbenches\LIFO_T.vhd=VHDL Source Code
+.\src\Sorting\SortManager.vhd=VHDL Source Code
+.\src\Testbenches\sortmanager_t.vhd=VHDL Source Code
+
 [Groups]
 Testbenches=1
+Sorting=1
 
 [Files]
 /LIFO.vhd=-1
@@ -70,16 +84,8 @@ Testbenches=1
 /MRAM.vhd=-1
 /CTRL1.vhd=-1
 /MROM.vhd=-1
+Testbenches/sortmanager_t.vhd=-1
 Testbenches/DPATH_T.vhd=-1
 Testbenches/LIFO_T.vhd=-1
-
-[Files.Data]
-.\src\LIFO.vhd=VHDL Source Code
-.\src\DPATH.vhd=VHDL Source Code
-.\src\Constants.vhd=VHDL Source Code
-.\src\MRAM.vhd=VHDL Source Code
-.\src\CTRL1.vhd=VHDL Source Code
-.\src\MROM.vhd=VHDL Source Code
-.\src\Testbenches\DPATH_T.vhd=VHDL Source Code
-.\src\Testbenches\LIFO_T.vhd=VHDL Source Code
+Sorting/SortManager.vhd=-1
 

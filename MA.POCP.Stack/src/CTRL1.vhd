@@ -10,12 +10,12 @@ entity CTRL1 is
 		
 		-- ROM
 		ROM_re: out std_logic;
-		ROM_adr: out std_logic_vector(5 downto 0);
+		ROM_addr: out std_logic_vector(5 downto 0);
 		ROM_dout: in std_logic_vector(9 downto 0);
 		
 		-- RAM
 		RAM_rw: out std_logic;
-		RAM_adr: out std_logic_vector(5 downto 0);
+		RAM_addr: out std_logic_vector(5 downto 0);
 		RAM_din: out std_logic_vector(7 downto 0);
 		RAM_dout: in std_logic_vector(7 downto 0);
 		
@@ -27,7 +27,7 @@ entity CTRL1 is
 		DP_sbf: in std_logic;
 		DP_zf: in std_logic;
 		DP_stop: in std_logic
-		);
+	);
 end CTRL1;
 
 architecture Beh_Stack of CTRL1 is
@@ -155,7 +155,7 @@ begin
 		end if;
 	end process;
 	
-	ROM_adr <= IC;
+	ROM_addr <= IC;
 	
 	-- ROM read signal
 	PROMREAD: process (nxt_state, cur_state)
@@ -194,7 +194,7 @@ begin
 	PRAMST: process (RA)
 	begin
 		if (cur_state /= JSB and cur_state /= JZ) then
-			RAM_adr <= RA;
+			RAM_addr <= RA;
 		end if;
 	end process;
 	
