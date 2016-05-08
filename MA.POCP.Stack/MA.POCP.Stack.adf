@@ -56,7 +56,7 @@ Directory7=e:\Development\MyProjects\MACourse\MA.POCP\MA.POCP.Stack\
 Extension7=htm;html
 
 [HierarchyViewer]
-HierarchyInformation=lifo_t|Beh|0 
+HierarchyInformation=lifo_t|Beh|0
 ShowHide=ShowTopLevel
 Selected=
 
@@ -67,6 +67,7 @@ Testbenches=1
 /LIFO.vhd=-1
 /DPATH.vhd=-1
 /Constants.vhd=-1
+/MRAM.vhd=-1
 Testbenches/DPATH_T.vhd=-1
 Testbenches/LIFO_T.vhd=-1
 
@@ -74,6 +75,7 @@ Testbenches/LIFO_T.vhd=-1
 .\src\LIFO.vhd=VHDL Source Code
 .\src\DPATH.vhd=VHDL Source Code
 .\src\Constants.vhd=VHDL Source Code
+.\src\MRAM.vhd=VHDL Source Code
 .\src\Testbenches\DPATH_T.vhd=VHDL Source Code
 .\src\Testbenches\LIFO_T.vhd=VHDL Source Code
 
