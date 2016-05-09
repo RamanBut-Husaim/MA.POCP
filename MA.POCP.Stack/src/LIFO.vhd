@@ -1,12 +1,12 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all; 
-use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
+use IEEE.NUMERIC_STD.all;
 
 entity LIFO is
 	generic(
 		-- address bus
-		m: integer := 2;
+		m: integer := 5;
 		-- data bus
 		n: integer := 2
 	);
@@ -29,12 +29,14 @@ architecture Beh of LIFO is
 	-- storage
 	type tRam is array (0 to 2**m - 1) of word;
 	
-	signal sRAM: tRam;
-	signal head: integer := 0;
+	signal sRAM: tRam := (
+	   (others => (others => '0'))
+	);
+	signal head: unsigned(m - 1 downto 0) := (others => '0');
 	signal data_rb: std_logic_vector(n-1 downto 0);
 	signal data_wb: std_logic_vector(n-1 downto 0);
 	
-	constant Limit: integer := 2 ** m -1;
+	constant Limit: unsigned(m - 1 downto 0) := to_unsigned(2 ** m -1, m);
 Begin
 	SH: process (CLK)
 	begin
@@ -42,7 +44,7 @@ Begin
 			if rising_edge(CLK) then
 				if (WR = '0') then
 					if (head  = Limit) then
-						head <= 0;
+						head <= (others => '0');
 					else
 						head <= head + 1;
 					end if;
@@ -64,7 +66,7 @@ Begin
 		if (EN = '1') then
 			if rising_edge(CLK) then
 				if WR = '0' then
-					sRAM(head) <= data_wb;
+					sRAM(to_integer(head)) <= data_wb;
 				end if;
 			end if;
 		end if;
@@ -76,9 +78,9 @@ Begin
 			if rising_edge(CLK) then
 				if WR = '1' then
 					if (head = 0) then
-						data_rb <= sRAM (Limit);
+						data_rb <= sRAM (to_integer(Limit));
 					else
-						data_rb <= sRAM (head - 1);
+						data_rb <= sRAM (to_integer(head - 1));
 					end if;
 				end if;
 			end if;
